@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using RealEstateAgency.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 
 namespace RealEstateAgency
 {
@@ -36,10 +37,16 @@ namespace RealEstateAgency
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
+                    Configuration.GetConnectionString("DefaultConnection").Replace("{currentPath}", Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\.."))));
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.User.RequireUniqueEmail = true;
+            })
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
