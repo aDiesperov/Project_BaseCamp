@@ -1,0 +1,47 @@
+﻿@model RealEstateAgency.ViewModels.AdvertViewModel
+
+@{
+    ViewData["Title"] = "Adverts";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Desctiprion</th>
+            <th>Type</th>
+            <th>Rent</th>
+            <th>Price</th>
+            <th>Date publication</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (Advert advert in Model.Adverts) {
+        <tr>
+            <td>
+                @Html.DisplayFor(item => advert.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(item => advert.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(item => advert.TypeRealEstate.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(item => advert.Rent)
+            </td>
+            <td>
+                @Html.DisplayFor(item => advert.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(item => advert.DatePublication)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

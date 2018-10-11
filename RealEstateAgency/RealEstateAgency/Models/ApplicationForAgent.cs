@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,5 +17,8 @@ namespace RealEstateAgency.Models
         public string Description { get; set; }
         [Column(TypeName = "DateTime")]
         public DateTime Date { get; set; }
+        [Required]
+        public virtual IdentityUser User { get; set; }
+        public bool Active { get; set; }
     }
 }

@@ -8,21 +8,25 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RealEstateAgency.Data;
 
 namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly UnitOfWork _unitOfWork;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
 
         public IndexModel(
             UserManager<IdentityUser> userManager,
+            UnitOfWork unitOfWork,
             SignInManager<IdentityUser> signInManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;
+            _unitOfWork = unitOfWork;
             _signInManager = signInManager;
             _emailSender = emailSender;
         }
@@ -30,7 +34,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
-
+        public bool NoApplicationForAgent { get; set; }
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -69,6 +73,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            NoApplicationForAgent = _unitOfWork.ApplicationForAgentRepository.GetByUser(user) == null;
 
             return Page();
         }

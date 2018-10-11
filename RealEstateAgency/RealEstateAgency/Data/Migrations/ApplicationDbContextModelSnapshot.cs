@@ -268,6 +268,8 @@ namespace RealEstateAgency.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Active");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("DateTime");
 
@@ -278,7 +280,12 @@ namespace RealEstateAgency.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(20);
 
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
                     b.HasKey("ApplicationForAgentId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ApplicationForAgents");
                 });
@@ -509,6 +516,14 @@ namespace RealEstateAgency.Data.Migrations
                 });
 
             modelBuilder.Entity("RealEstateAgency.Models.Agent", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RealEstateAgency.Models.ApplicationForAgent", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()

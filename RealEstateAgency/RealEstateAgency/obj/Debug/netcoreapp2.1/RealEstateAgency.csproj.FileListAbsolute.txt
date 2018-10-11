@@ -42,3 +42,9 @@ E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Ra
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\_ViewImports.g.cshtml.cs
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.g.cshtml.cs
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\_ViewImports.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Views\Gallery\Index.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Views\Gallery\Create.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Manage\ApplicationsForAgent.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Manage\CreateApplicationForAgent.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Manage\Agents.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\RealEstateAgency.csprojAssemblyReference.cache

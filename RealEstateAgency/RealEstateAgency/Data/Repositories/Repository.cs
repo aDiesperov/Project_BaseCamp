@@ -11,44 +11,32 @@ namespace RealEstateAgency.Data.Repositories
         private ApplicationDbContext _context;
 
         public Repository(ApplicationDbContext context) => _context = context;
-        public int Count(Func<T, bool> predicate)
+        public int Count(Func<T, bool> predicate) => _context.Set<T>().Count(predicate);
+
+        public async Task CreateAsync(T entity)
         {
-            return _context.Set<T>().Count(predicate);
+            await _context.AddAsync(entity);
+            await SaveAsync();
         }
 
-        public void Create(T entity)
-        {
-            _context.Add(entity);
-            Save();
-        }
-
-        public void Delete(T entity)
+        public async Task DeleteAsync(T entity)
         {
             _context.Remove(entity);
-            Save();
+            await SaveAsync();
         }
 
-        public IEnumerable<T> Find(Func<T, bool> predicate)
-        {
-            return _context.Set<T>().Where(predicate);
-        }
+        public IEnumerable<T> Find(Func<T, bool> predicate) => _context.Set<T>().Where(predicate);
 
-        public IEnumerable<T> GetAll()
-        {
-            return _context.Set<T>();
-        }
+        public IQueryable<T> GetAll() => _context.Set<T>();
 
-        public T GetById(int id)
-        {
-            return _context.Set<T>().Find(id);
-        }
+        public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             _context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            Save();
+            await SaveAsync();
         }
 
-        private void Save() => _context.SaveChanges();
+        private async Task SaveAsync() => await _context.SaveChangesAsync();
     }
 }

@@ -1,0 +1,83 @@
+﻿@model RealEstateAgency.ViewModels.CreateAdvertViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>CreateAdvertViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" type="number" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Floor" class="control-label"></label>
+                <input asp-for="Floor" class="form-control" />
+                <span asp-validation-for="Floor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumStories" class="control-label"></label>
+                <input asp-for="NumStories" class="form-control" />
+                <span asp-validation-for="NumStories" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumRooms" class="control-label"></label>
+                <input asp-for="NumRooms" class="form-control" />
+                <span asp-validation-for="NumRooms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalArea" class="control-label"></label>
+                <input asp-for="TotalArea" type="number" class="form-control" />
+                <span asp-validation-for="TotalArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KitchenArea" class="control-label"></label>
+                <input asp-for="KitchenArea" type="number" class="form-control" />
+                <span asp-validation-for="KitchenArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeRealEstate" class="control-label"></label>
+                <select asp-for="TypeRealEstate" asp-items="@(new SelectList(Model.TypeRealEstates,"TypeRealEstateId","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Files" class="control-label"></label>
+                <input asp-for="Files" class="form-control" />
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Rent" /> @Html.DisplayNameFor(model => model.Rent)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
