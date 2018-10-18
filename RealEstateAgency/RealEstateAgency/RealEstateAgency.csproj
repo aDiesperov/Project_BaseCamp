@@ -12,9 +12,19 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="imgs\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\Identity\Pages\Account\Manage\Adverts.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Identity\Pages\Account\Manage\MyAdverts.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Identity\Pages\Account\Manage\MyApplicationForRealEstate.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Identity\Pages\Account\Manage\CreateApplicationForAgent.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -22,6 +32,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Identity\Pages\Account\Manage\Agents.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_StatusMessage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

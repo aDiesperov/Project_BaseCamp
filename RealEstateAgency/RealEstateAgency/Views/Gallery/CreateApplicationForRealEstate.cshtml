@@ -1,0 +1,93 @@
+﻿@model RealEstateAgency.ViewModels.ApplicationForRealEstateViewModel
+
+@{
+    ViewData["Title"] = "Create application for real estate";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Application for real estate</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateApplicationForRealEstate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FromPrice" class="control-label"></label>
+                <input asp-for="FromPrice" class="form-control" />
+                <span asp-validation-for="FromPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToPrice" class="control-label"></label>
+                <input asp-for="ToPrice" class="form-control" />
+                <span asp-validation-for="ToPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeRealEstate" class="control-label"></label>
+                <select class="form-control" asp-for="TypeRealEstate" asp-items="@(new SelectList(Model.TypesRealEstate,"TypeRealEstateId","Name"))" ></select>
+                <span asp-validation-for="TypeRealEstate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FromFloor" class="control-label"></label>
+                <input asp-for="FromFloor" class="form-control" />
+                <span asp-validation-for="FromFloor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToFloor" class="control-label"></label>
+                <input asp-for="ToFloor" class="form-control" />
+                <span asp-validation-for="ToFloor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FromNumRooms" class="control-label"></label>
+                <input asp-for="FromNumRooms" class="form-control" />
+                <span asp-validation-for="FromNumRooms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToNumRooms" class="control-label"></label>
+                <input asp-for="ToNumRooms" class="form-control" />
+                <span asp-validation-for="ToNumRooms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FromTotalArea" class="control-label"></label>
+                <input asp-for="FromTotalArea" class="form-control" />
+                <span asp-validation-for="FromTotalArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToTotalArea" class="control-label"></label>
+                <input asp-for="ToTotalArea" class="form-control" />
+                <span asp-validation-for="ToTotalArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FromKitchenArea" class="control-label"></label>
+                <input asp-for="FromKitchenArea" class="form-control" />
+                <span asp-validation-for="FromKitchenArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToKitchenArea" class="control-label"></label>
+                <input asp-for="ToKitchenArea" class="form-control" />
+                <span asp-validation-for="ToKitchenArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

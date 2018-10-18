@@ -2,6 +2,6 @@
 {
     public enum TypeStatusAdvert : byte
     {
-        waiting, relevant, rejected, notRelevant
+        waiting = 1, resolved = 2, rejected = 4, notRelevant = 8
     }
 }

@@ -18,7 +18,7 @@ namespace RealEstateAgency.ViewModels
         [Required]
         [Display(Name = "Type Real Estate")]
         public int TypeRealEstate { get; set; }
-        public List<TypeRealEstate> TypeRealEstates { get; set; }
+        public IEnumerable<TypeRealEstate> TypesRealEstate { get; set; }
         public byte? Floor { get; set; }
         [Display(Name = "Number of stories")]
         public byte? NumStories { get; set; }

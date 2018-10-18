@@ -5,9 +5,13 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-
+<partial name="_StatusMessage" model="@ViewData["MessageState"]" />
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (User.IsInRole("Agent"))
+    {
+    <a asp-action="Create">Create new</a> @:|
+    }
+    <a asp-action="CreateApplicationForRealEstate">Create application for real estate</a>
 </p>
 <table class="table">
     <thead>

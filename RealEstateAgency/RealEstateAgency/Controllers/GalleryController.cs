@@ -17,6 +17,8 @@ namespace RealEstateAgency.Controllers
     {
         private UnitOfWork _unitOfWork;
         private UserManager<IdentityUser> _userManager;
+        [TempData]
+        public string MessageState { get; set; }
 
         public GalleryController(UnitOfWork unitOfWork, UserManager<IdentityUser> userManager)
         {
@@ -28,10 +30,10 @@ namespace RealEstateAgency.Controllers
         {
             AdvertViewModel advertViewModel = new AdvertViewModel()
             {
-                Adverts = _unitOfWork.AdvertRepository.GetAll(),
+                Adverts = _unitOfWork.AdvertRepository.GetAllResolveWithType(),
                 TypeRealEstates = _unitOfWork.TypeRealEstateRepository.GetAll()
             };
-
+            ViewData["MessageState"] = MessageState;
             return View(advertViewModel);
         }
         [Authorize(Roles = "Agent")]
@@ -40,7 +42,7 @@ namespace RealEstateAgency.Controllers
         {
             CreateAdvertViewModel createAdvertViewModel = new CreateAdvertViewModel()
             {
-                TypeRealEstates = _unitOfWork.TypeRealEstateRepository.GetAll().ToList()
+                TypesRealEstate = _unitOfWork.TypeRealEstateRepository.GetAll()
             };
 
             return View(createAdvertViewModel);
@@ -49,7 +51,7 @@ namespace RealEstateAgency.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateAdvertViewModel createAdvert)
         {
-            if (ModelState.IsValid && false)
+            if (ModelState.IsValid)
             {
                 Advert advert = new Advert()
                 {
@@ -67,11 +69,13 @@ namespace RealEstateAgency.Controllers
                     DateChangeStatus = DateTime.Now,
                     DatePublication = DateTime.Now,
                     TypeRealEstate = await _unitOfWork.TypeRealEstateRepository.GetByIdAsync(createAdvert.TypeRealEstate),
-                    Author = _unitOfWork.AgentRepository.GetByUser(await _userManager.GetUserAsync(User)),
+                    Author = await _unitOfWork.AgentRepository.GetByUserAsync(await _userManager.GetUserAsync(User)),
                 };
 
+                await _unitOfWork.AdvertRepository.CreateAsync(advert);
+
                 //upload files
-                foreach(var file in createAdvert.Files)
+                foreach (var file in createAdvert.Files)
                 {
                     if (file.Length > 0)
                     {
@@ -87,17 +91,54 @@ namespace RealEstateAgency.Controllers
                         ImgForAdvert imgForAdvert = new ImgForAdvert() { Name = fileName, Advert = advert };
                         await _unitOfWork.ImgForAdvertRepository.CreateAsync(imgForAdvert);
                     }
-                }
-
-                await _unitOfWork.AdvertRepository.CreateAsync(advert);
+                }                
             }
             else
             {
-                createAdvert.TypeRealEstates = _unitOfWork.TypeRealEstateRepository.GetAll().ToList();
+                createAdvert.TypesRealEstate = _unitOfWork.TypeRealEstateRepository.GetAll();
 
                 return View(createAdvert);
             }
-            return RedirectToAction();
+
+            MessageState = "Added!";
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult CreateApplicationForRealEstate()
+        {
+            ApplicationForRealEstateViewModel application = new ApplicationForRealEstateViewModel()
+            {
+                TypesRealEstate = _unitOfWork.TypeRealEstateRepository.GetAll()
+            };
+
+            return View(application);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateApplicationForRealEstate(ApplicationForRealEstateViewModel applicationViewModel)
+        {
+            ApplicationForRealEstate application = new ApplicationForRealEstate()
+            {
+                Author = await _userManager.GetUserAsync(User),
+                Active = true,
+                DatePublication = DateTime.Now,
+                Description = applicationViewModel.Description,
+                FromFloor = applicationViewModel.FromFloor,
+                FromKitchenArea = applicationViewModel.FromKitchenArea,
+                FromNumRooms = applicationViewModel.FromNumRooms,
+                FromPrice = applicationViewModel.FromPrice,
+                FromTotalArea = applicationViewModel.FromTotalArea,
+                Name = applicationViewModel.Name,
+                ToFloor = applicationViewModel.ToFloor,
+                ToKitchenArea = applicationViewModel.ToKitchenArea,
+                ToNumRooms = applicationViewModel.ToNumRooms,
+                ToPrice = applicationViewModel.ToPrice,
+                ToTotalArea = applicationViewModel.ToTotalArea,
+                TypeRealEstate = await _unitOfWork.TypeRealEstateRepository.GetByIdAsync(applicationViewModel.TypeRealEstate)
+            };
+            await _unitOfWork.ApplicationForRealEstateRepository.CreateAsync(application);
+
+            MessageState = "Added!";
+            return RedirectToAction("Index");
         }
     }
 }

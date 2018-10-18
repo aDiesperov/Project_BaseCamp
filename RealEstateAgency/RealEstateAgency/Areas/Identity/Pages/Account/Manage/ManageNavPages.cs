@@ -22,9 +22,20 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
+        public static string Agents => "Agents";
+        public static string ApplicationsForAgent => "ApplicationsForAgent";
+        public static string MyApplicationForRealEstate => "MyApplicationForRealEstate";
+        public static string MyAdverts => "MyAdverts";
+        public static string Adverts => "Adverts";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
+        public static string AgentsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Agents);
+        public static string ApplicationsForAgentNavClass(ViewContext viewContext) => PageNavClass(viewContext, ApplicationsForAgent);
+        public static string MyApplicationForRealEstateNavClass(ViewContext viewContext) => PageNavClass(viewContext, MyApplicationForRealEstate);
+        public static string MyAdvertsNavClass(ViewContext viewContext) => PageNavClass(viewContext, MyAdverts);
+        public static string AdvertsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Adverts);
 
         public static string DownloadPersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, DownloadPersonalData);
 

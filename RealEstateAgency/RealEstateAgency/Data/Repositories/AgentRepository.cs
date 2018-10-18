@@ -13,9 +13,9 @@ namespace RealEstateAgency.Data.Repositories
     {
         public AgentRepository(ApplicationDbContext context) : base(context) { }
 
-        public Agent GetByUser(IdentityUser user)
+        public async Task<Agent> GetByUserAsync(IdentityUser user)
         {
-            return Find(agent => agent.User == user).SingleOrDefault();
+            return await GetAll().SingleOrDefaultAsync(agent => agent.User == user);
         }
 
         public IEnumerable<Agent> GetAllWithUser()
@@ -25,7 +25,7 @@ namespace RealEstateAgency.Data.Repositories
 
         public async Task<Agent> GetByIdWithUserAsync(int id)
         {
-            return await GetAll().Include(agent => agent.User).Where(agent => agent.AgentId == id).SingleOrDefaultAsync();
+            return await GetAll().Include(agent => agent.User).SingleOrDefaultAsync(agent => agent.AgentId == id);
         }
     }
 }

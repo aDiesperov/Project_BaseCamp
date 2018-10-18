@@ -1,0 +1,106 @@
+﻿@page
+@model AdvertsModel
+@{
+    ViewData["Title"] = "Adverts";
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adverts.First().Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adverts.First().Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adverts.First().Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adverts.First().TotalArea)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adverts.First().TypeRealEstate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adverts.First().DatePublication)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adverts.First().StatusActive)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adverts.First().Author)
+                    </th>
+                    <th width="175px">Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Adverts == null || Model.Adverts.Count() == 0)
+                {
+                    <tr>
+                        <td align="center" colspan="7">Empty!</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model.Adverts)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalArea)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TypeRealEstate.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DatePublication)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StatusActive)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Author.Name)
+                            </td>
+                            <td>
+                                <form method="post">
+                                    <input name="id" value="@item.AdvertId" type="hidden" />
+                                    @switch (item.StatusActive)
+                                    {
+                                        case Models.TypeStatusAdvert.waiting:
+                                            <button class="btn btn-success" asp-page-handler="Resolve">Resolve</button>@:|
+                                            <button class="btn btn-warning" asp-page-handler="Reject">Reject</button>
+                                            break;
+                                        case Models.TypeStatusAdvert.resolved:
+                                            <button class="btn btn-warning" asp-page-handler="Reject">Reject</button>@:|
+                                            break;
+                                        case Models.TypeStatusAdvert.rejected:
+                                            <button class="btn btn-success" asp-page-handler="Resolve">Resolve</button>@:|
+                                            break;
+                                    }
+                                    <button class="btn btn-danger" asp-page-handler="Delete">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

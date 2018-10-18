@@ -356,7 +356,7 @@ namespace RealEstateAgency.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30);
+                        .HasMaxLength(50);
 
                     b.HasKey("ImgForAdvertId");
 
