@@ -49,40 +49,40 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            if(_unitOfWork.ApplicationForAgentRepository.GetByUser(await _userManager.GetUserAsync(User)) != null)
+            if(await _unitOfWork.ApplicationForAgentRepository.GetByUserAsync(await _userManager.GetUserAsync(User)) != null)
                 return Forbid();
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (_unitOfWork.ApplicationForAgentRepository.GetByUser(await _userManager.GetUserAsync(User)) != null)
+            if (await _unitOfWork.ApplicationForAgentRepository.GetByUserAsync(await _userManager.GetUserAsync(User)) != null)
                 return Forbid();
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return Page();
+
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+
+                ApplicationForAgent applicationForAgent = new ApplicationForAgent()
+                {
+                    Name = Application.Name,
+                    Description = Application.Description,
+                    Active = true,
+                    User = user,
+                    Date = DateTime.Now
+                };
+
+                await _unitOfWork.ApplicationForAgentRepository.CreateAsync(applicationForAgent);
+
+                StatusMessage = "The application has been sent!";
+                return RedirectToPage("./Index");
             }
-
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            ApplicationForAgent applicationForAgent = new ApplicationForAgent()
-            {
-                Name = Application.Name,
-                Description = Application.Description,
-                Active = true,
-                User = user,
-                Date = DateTime.Now
-            };
-
-            await _unitOfWork.ApplicationForAgentRepository.CreateAsync(applicationForAgent);
-
-            StatusMessage = "The application has been sent!";
-            return RedirectToPage("./Index");
+            return Page();
         }
         
     }

@@ -13,20 +13,9 @@ namespace RealEstateAgency.Data.Repositories
     {
         public ApplicationForAgentRepository(ApplicationDbContext context) : base(context) { }
 
-        public ApplicationForAgent GetByUser(IdentityUser user)
+        public async Task<ApplicationForAgent> GetByUserAsync(IdentityUser user)
         {
-            return Find(app => app.User == user).SingleOrDefault();
-        }
-
-        public async Task<ApplicationForAgent> GetByIdWithUserAsync(int id)
-        {
-            return await GetAll().Include(app => app.User).SingleOrDefaultAsync(app => app.ApplicationForAgentId == id);
-            
-        }
-
-        public IEnumerable<ApplicationForAgent> FindWithUser(Func<ApplicationForAgent, bool> predicate)
-        {
-            return GetAll().Include(app => app.User).Where(predicate);
+            return await GetAll().SingleOrDefaultAsync(app => app.User == user);
         }
     }
 }

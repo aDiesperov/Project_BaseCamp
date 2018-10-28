@@ -8,7 +8,6 @@ E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\bin\Debug\netcoreapp2.1\Re
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\RealEstateAgency.csproj.CoreCompileInputs.cache
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\RealEstateAgency.RazorAssemblyInfo.cache
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\RealEstateAgency.RazorAssemblyInfo.cs
-E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\RealEstateAgency.AssemblyInfoInputs.cache
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\RealEstateAgency.AssemblyInfo.cs
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\RealEstateAgency.TagHelpers.input.cache
@@ -50,6 +49,11 @@ E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Ra
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Manage\MyApplicationForRealEstate.g.cshtml.cs
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Views\Gallery\CreateApplicationForRealEstate.g.cshtml.cs
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_StatusMessage.g.cshtml.cs
-E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\RealEstateAgency.csprojAssemblyReference.cache
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Manage\Adverts.g.cshtml.cs
 E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Manage\MyAdverts.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Manage\ApplicationsForRealEstate.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Pages\Account\Manage\OfferRealEstate.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Views\Chat\Index.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\RealEstateAgency.csprojAssemblyReference.cache
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\Razor\Views\Offer\Index.g.cshtml.cs
+E:\Project_BaseCamp\RealEstateAgency\RealEstateAgency\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs

@@ -38,7 +38,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator"))
                 return Forbid();
 
-            Adverts = _unitOfWork.AdvertRepository.GetAllWithTypeAndUser();
+            Adverts = _unitOfWork.AdvertRepository.GetAll();
 
             return Page();
         }
@@ -48,7 +48,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator"))
                 return Forbid();
 
-            Advert advert = await _unitOfWork.AdvertRepository.GetWithUserByIdAsync(id);            
+            Advert advert = await _unitOfWork.AdvertRepository.GetByIdAsync(id);            
 
             if (advert != null)
             {
@@ -82,7 +82,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator"))
                 return Forbid();
 
-            Advert advert = await _unitOfWork.AdvertRepository.GetWithUserByIdAsync(id);
+            Advert advert = await _unitOfWork.AdvertRepository.GetByIdAsync(id);
             
 
             if (advert != null)
@@ -115,7 +115,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator"))
                 return Forbid();
 
-            Advert advert = await _unitOfWork.AdvertRepository.GetWithUserByIdAsync(id);            
+            Advert advert = await _unitOfWork.AdvertRepository.GetByIdAsync(id);            
 
             if (advert != null)
             {

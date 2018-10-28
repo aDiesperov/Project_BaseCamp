@@ -19,23 +19,41 @@ namespace RealEstateAgency.Hubs
             _unitOfWork = unitOfWork;
             _userManager = userManager;
         }
-        public async Task SendMessage(string message, string toUser)
+        public async Task<Message> SendMessage(string message, string toUser)
         {
+            IdentityUser ToUser = await _userManager.FindByNameAsync(toUser);
+            if (ToUser == null) throw new ArgumentException("User doesn't exist!");
+            IdentityUser FromUser = await _userManager.GetUserAsync(Context.User);
+            if (FromUser == null) throw new ArgumentException("User doesn't exist!");
+
             Message msg = new Message() {
                 MessageText = message,
                 Date = DateTime.Now,
-                ToUser = await _userManager.FindByNameAsync(toUser),
-                FromUser = await _userManager.GetUserAsync(Context.User)
+                ToUser = ToUser,
+                FromUser = FromUser
             };
 
             await _unitOfWork.MessageRepository.CreateAsync(msg);
 
-            await Clients.User(msg.ToUser.Id).SendAsync("ReceiveMessage", message);
-            if (msg.ToUser.UserName != msg.FromUser.UserName)
-            {
-                await Clients.Caller.SendAsync("ReceiveMessage", message);
-            }
+            if(msg.ToUser != msg.FromUser)
+                await Clients.User(msg.ToUser.Id).SendAsync("ReceiveMessage", msg);
+            return msg;
+        }
 
+        public async Task<IEnumerable<Message>> GetAllChatByUser(string name)
+        {
+            IdentityUser toUser = await _userManager.FindByNameAsync(name);
+            if (toUser == null) return null;
+            IdentityUser user = await _userManager.GetUserAsync(Context.User);
+            if (user == null) return null;
+
+            return _unitOfWork.MessageRepository.GetAllChatByUsers(toUser, user);
+        }
+
+        public async Task<bool> UserIsExist(string user)
+        {
+            if (await _userManager.FindByNameAsync(user) == null) return false;
+            return true;
         }
     }
 }

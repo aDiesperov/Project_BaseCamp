@@ -9,11 +9,9 @@ namespace RealEstateAgency.Data.Interfaces
 {
     interface IAdvertRepository : IRepository<Advert>
     {
-        IQueryable<Advert> GetAllWithType();
-        IQueryable<Advert> GetAllWithTypeAndUser();
-        Task<Advert> GetWithUserByIdAsync(int id);
-        IQueryable<Advert> GetAllWithTypeByAgent(IdentityUser user);
-        IQueryable<Advert> GetAllResolveWithType();
+        IQueryable<Advert> GetAllByUser(IdentityUser user);
+        IQueryable<Advert> GetAllResolve();
+        IQueryable<Advert> GetAllResolveByUser(IdentityUser user);
 
     }
 }

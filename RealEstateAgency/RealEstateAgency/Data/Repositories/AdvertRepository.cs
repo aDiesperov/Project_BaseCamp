@@ -13,29 +13,19 @@ namespace RealEstateAgency.Data.Repositories
     {
         public AdvertRepository(ApplicationDbContext context) : base(context) { }
 
-        public IQueryable<Advert> GetAllWithType()
+        public IQueryable<Advert> GetAllByUser(IdentityUser user)
         {
-            return GetAll().Include(advert => advert.TypeRealEstate);
+            return GetAll().Where(advert => advert.Author.User == user);
         }
 
-        public IQueryable<Advert> GetAllWithTypeByAgent(IdentityUser user)
+        public IQueryable<Advert> GetAllResolve()
         {
-            return GetAllWithType().Where(advert => advert.Author.User.Equals(user));
+            return GetAll().Where(advert => advert.StatusActive == TypeStatusAdvert.resolved);
         }
 
-        public Task<Advert> GetWithUserByIdAsync(int id)
+        public IQueryable<Advert> GetAllResolveByUser(IdentityUser user)
         {
-            return GetAll().Include(advert => advert.Author).ThenInclude(agent => agent.User).SingleOrDefaultAsync(advert => advert.AdvertId == id);
-        }
-
-        public IQueryable<Advert> GetAllResolveWithType()
-        {
-            return GetAllWithType().Where(advert => advert.StatusActive == TypeStatusAdvert.resolved);
-        }
-
-        public IQueryable<Advert> GetAllWithTypeAndUser()
-        {
-            return GetAllWithType().Include(advert => advert.Author);
+            return GetAllResolve().Where(advert => advert.Author.User == user);
         }
     }
 }

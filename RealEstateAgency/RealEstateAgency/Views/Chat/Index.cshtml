@@ -1,0 +1,62 @@
+﻿@model IEnumerable<RealEstateAgency.Models.Message>
+
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<div class="container">
+    <div class="inbox_msg">
+        <div class="inbox_people">
+            <div class="headind_srch">
+                <div class="recent_heading">
+                    <h4>@ViewData["Title"]</h4>
+                </div>
+                <div class="srch_bar">
+                    <input type="text" class="search-bar" placeholder="Search">
+                    <button class="search-btn glyphicon glyphicon-search" type="button"></button>
+                </div>
+            </div>
+            <div class="inbox_chat">
+                @foreach (var item in Model)
+                {
+                    <div onclick="changeChat(this)" id="user@(item.FromUser.UserName == User.Identity.Name ? item.ToUser.UserName.ToLower() : item.FromUser.UserName.ToLower())" class="chat_list">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                            <div class="chat_ib">
+                                <h5>@(item.FromUser.UserName == User.Identity.Name ? item.ToUser.UserName : item.FromUser.UserName)<span class="chat_date">@item.Date</span></h5>
+                                @{
+                                    string prepareText = System.Text.RegularExpressions.Regex.Replace(item.MessageText, "<.*?>", " ");
+                                    if (prepareText.Length > 200)
+                                    {
+                                        prepareText = prepareText.Substring(0, 197) + "...";
+                                    }
+                                }
+                                <p class="chat_text">
+                                    @prepareText
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="mesgs">
+            <div class="msg_history">
+
+            </div>
+            <div class="type_msg">
+                <div class="input_msg_write">
+                    <input id="txtMessage" type="text" class="write_msg" placeholder="Type a message" />
+                    <button id="sendMessage" class="msg_send_btn glyphicon glyphicon-send"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/signalr/signalr.js"></script>
+
+    <link rel="stylesheet" href="~/css/chat.css" />
+    <script src="~/js/chat.js" asp-append-version="true"></script>
+}

@@ -6,7 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20181024184606_add-OfferRealEstate.cs" />
+    <Compile Remove="Data\Migrations\20181024184606_add-OfferRealEstate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" PrivateAssets="All" />
   </ItemGroup>
 
@@ -17,6 +24,9 @@
 
   <ItemGroup>
     <Content Update="Areas\Identity\Pages\Account\Manage\Adverts.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Identity\Pages\Account\Manage\ApplicationsForRealEstate.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Identity\Pages\Account\Manage\MyAdverts.cshtml">

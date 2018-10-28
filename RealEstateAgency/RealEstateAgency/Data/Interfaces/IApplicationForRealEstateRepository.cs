@@ -9,7 +9,7 @@ namespace RealEstateAgency.Data.Interfaces
 {
     interface IApplicationForRealEstateRepository : IRepository<ApplicationForRealEstate>
     {
-        IEnumerable<ApplicationForRealEstate> GetMyApplication(IdentityUser User);
-        Task<ApplicationForRealEstate> GetByIdWithUserAsync(int id);
+        IQueryable<ApplicationForRealEstate> GetAllByUser(IdentityUser User);
+        IEnumerable<ApplicationForRealEstate> GetAllActive();
     }
 }

@@ -16,6 +16,7 @@ namespace RealEstateAgency.Data
         private TypeRealEstateRepository typeRealEstateRepository;
         private ApplicationForAgentRepository applicationForAgentRepository;
         private ApplicationForRealEstateRepository applicationForRealEstateRepository;
+        private OfferRealEstateRepository offerRealEstateRepository;
 
         public UnitOfWork(ApplicationDbContext context) => _context = context;
         public ApplicationForRealEstateRepository ApplicationForRealEstateRepository
@@ -24,6 +25,14 @@ namespace RealEstateAgency.Data
             {
                 if (this.applicationForRealEstateRepository == null) this.applicationForRealEstateRepository = new ApplicationForRealEstateRepository(_context);
                 return this.applicationForRealEstateRepository;
+            }
+        }
+        public OfferRealEstateRepository OfferRealEstateRepository
+        {
+            get
+            {
+                if (this.offerRealEstateRepository == null) this.offerRealEstateRepository = new OfferRealEstateRepository(_context);
+                return this.offerRealEstateRepository;
             }
         }
         public AdvertRepository AdvertRepository

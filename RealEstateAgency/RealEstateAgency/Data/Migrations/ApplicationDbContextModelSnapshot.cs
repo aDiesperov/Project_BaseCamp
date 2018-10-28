@@ -15,7 +15,7 @@ namespace RealEstateAgency.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -392,6 +392,27 @@ namespace RealEstateAgency.Data.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("RealEstateAgency.Models.OfferRealEstate", b =>
+                {
+                    b.Property<int>("OfferRealEstateId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AdvertId");
+
+                    b.Property<int>("ApplicationForRealEstateId");
+
+                    b.Property<byte>("TypeStatusOffer");
+
+                    b.HasKey("OfferRealEstateId");
+
+                    b.HasIndex("AdvertId");
+
+                    b.HasIndex("ApplicationForRealEstateId");
+
+                    b.ToTable("OfferRealEstates");
+                });
+
             modelBuilder.Entity("RealEstateAgency.Models.TypeRealEstate", b =>
                 {
                     b.Property<int>("TypeRealEstateId")
@@ -562,6 +583,19 @@ namespace RealEstateAgency.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "ToUser")
                         .WithMany()
                         .HasForeignKey("ToUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("RealEstateAgency.Models.OfferRealEstate", b =>
+                {
+                    b.HasOne("RealEstateAgency.Models.Advert", "Advert")
+                        .WithMany()
+                        .HasForeignKey("AdvertId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RealEstateAgency.Models.ApplicationForRealEstate", "ApplicationForRealEstate")
+                        .WithMany()
+                        .HasForeignKey("ApplicationForRealEstateId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

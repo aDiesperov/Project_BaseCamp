@@ -1,0 +1,36 @@
+﻿@model RealEstateAgency.Models.OfferRealEstate
+@{
+    ViewData["Title"] = "Offer";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="card">
+    <h5 class="card-header">Offer</h5>
+    <div class="card-body">
+        <h5 class="card-title">@Model.Advert.Name</h5>
+        <p class="card-text">@Model.Advert.Description</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Total area: @Model.Advert.TotalArea</li>
+        <li class="list-group-item">Price: @Model.Advert.Price</li>
+    </ul><div style="justify-content: space-around; display: flex;" class="card-body">
+    @if (Model.TypeStatusOffer == TypeStatusOffer.waiting)
+    {
+        @Html.ActionLink("Resolve", "Resolve", new { id = Model.OfferRealEstateId }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Reject", "Reject", new { id = Model.OfferRealEstateId }, new { @class = "btn btn-warning" })
+    }
+    else if(Model.TypeStatusOffer == TypeStatusOffer.resolved)
+    {
+        <p class="text-success">Resolved</p>
+    }
+    else if(Model.TypeStatusOffer == TypeStatusOffer.rejected)
+    {
+        <p class="text-warning">Rejected</p>
+    }
+    else
+    {
+        <p class="text-info">Off</p>
+    }
+    </div>
+</div>

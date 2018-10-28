@@ -1,0 +1,79 @@
+﻿@page
+@model ApplicationsForRealEstateModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applications.First().Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applications.First().Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applications.First().TypeRealEstate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applications.First().Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applications.First().DatePublication)
+                    </th>
+                    <th width="175px">Configuration</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Applications == null || Model.Applications.Count() == 0)
+                {
+                    <tr>
+                        <td align="center" colspan="6">Empty!</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model.Applications)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TypeRealEstate.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Author.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DatePublication)
+                            </td>
+                            <td>                                
+                                <form method="post">
+                                    @if (User.IsInRole("Agent"))
+                                    {
+                                        <a class="btn btn-success" asp-route-id="@item.ApplicationForRealEstateId" asp-page="OfferRealEstate">To offer</a> @:|
+                                    }
+                                    <input name="id" value="@item.ApplicationForRealEstateId" type="hidden" />
+                                    <button class="btn btn-danger" asp-page-handler="Delete">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

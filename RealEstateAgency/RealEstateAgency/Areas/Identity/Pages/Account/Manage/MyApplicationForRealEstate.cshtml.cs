@@ -36,14 +36,14 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
 
-            Applications = _unitOfWork.ApplicationForRealEstateRepository.GetMyApplication(await _userManager.GetUserAsync(User));
+            Applications = _unitOfWork.ApplicationForRealEstateRepository.GetAllByUser(await _userManager.GetUserAsync(User));
 
             return Page();
         }
 
         public async Task<IActionResult> OnPostOnOffAsync(int id)
         {
-            ApplicationForRealEstate application = await _unitOfWork.ApplicationForRealEstateRepository.GetByIdWithUserAsync(id);
+            ApplicationForRealEstate application = await _unitOfWork.ApplicationForRealEstateRepository.GetByIdAsync(id);
             
             if (application != null && application.Author == await _userManager.GetUserAsync(User))
             {
@@ -62,7 +62,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            ApplicationForRealEstate application = await _unitOfWork.ApplicationForRealEstateRepository.GetByIdWithUserAsync(id);
+            ApplicationForRealEstate application = await _unitOfWork.ApplicationForRealEstateRepository.GetByIdAsync(id);
 
             if (application.Author == await _userManager.GetUserAsync(User))
             {

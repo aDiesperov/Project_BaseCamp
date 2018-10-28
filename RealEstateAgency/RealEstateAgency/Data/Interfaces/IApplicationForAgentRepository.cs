@@ -9,8 +9,6 @@ namespace RealEstateAgency.Data.Interfaces
 {
     interface IApplicationForAgentRepository : IRepository<ApplicationForAgent>
     {
-        ApplicationForAgent GetByUser(IdentityUser user);
-        Task<ApplicationForAgent> GetByIdWithUserAsync(int id);
-        IEnumerable<ApplicationForAgent> FindWithUser(Func<ApplicationForAgent, bool> predicate);
+        Task<ApplicationForAgent> GetByUserAsync(IdentityUser user);
     }
 }

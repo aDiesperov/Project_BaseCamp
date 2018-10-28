@@ -73,7 +73,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
-            NoApplicationForAgent = _unitOfWork.ApplicationForAgentRepository.GetByUser(user) == null;
+            NoApplicationForAgent = await _unitOfWork.ApplicationForAgentRepository.GetByUserAsync(user) == null;
 
             return Page();
         }
@@ -138,7 +138,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             var callbackUrl = Url.Page(
                 "/Account/ConfirmEmail",
                 pageHandler: null,
-                values: new { userId = userId, code = code },
+                values: new { userId, code },
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,

@@ -32,6 +32,6 @@ namespace RealEstateAgency.Models
         [Column(TypeName = "DateTime")]
         public DateTime DatePublication { get; set; }
         public bool Rent { get; set; }
-        public ICollection<ImgForAdvert> CollectionImgs { get; set; }
+        public virtual ICollection<ImgForAdvert> CollectionImgs { get; set; }
     }
 }

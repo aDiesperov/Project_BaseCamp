@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Proxies;
 using RealEstateAgency.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +38,8 @@ namespace RealEstateAgency
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseLazyLoadingProxies()
+                    .UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection").Replace("{currentPath}", Path.GetFullPath(Directory.GetCurrentDirectory() + "\\..\\.."))));
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>

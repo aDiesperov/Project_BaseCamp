@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -34,7 +35,8 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator"))
                 return Forbid();
 
-            Agents = _unitOfWork.AgentRepository.GetAllWithUser();
+            Agents = _unitOfWork.AgentRepository.GetAll();
+            var user = Agents.First().User;
 
             return Page();
         }
@@ -44,7 +46,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator"))
                 return Forbid();
 
-            Agent agent = await _unitOfWork.AgentRepository.GetByIdWithUserAsync(id);
+            Agent agent = await _unitOfWork.AgentRepository.GetByIdAsync(id);
 
             if (agent != null)
             {
@@ -69,7 +71,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator"))
                 return Forbid();
 
-            Agent agent = await _unitOfWork.AgentRepository.GetByIdWithUserAsync(id);
+            Agent agent = await _unitOfWork.AgentRepository.GetByIdAsync(id);
 
             if (agent != null)
             {

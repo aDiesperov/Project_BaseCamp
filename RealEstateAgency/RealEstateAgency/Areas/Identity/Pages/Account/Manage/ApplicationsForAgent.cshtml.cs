@@ -35,7 +35,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator"))
                 return Forbid();
 
-            Applications = _unitOfWork.ApplicationForAgentRepository.FindWithUser(app => app.Active == true);            
+            Applications = _unitOfWork.ApplicationForAgentRepository.Find(app => app.Active == true);            
 
             return Page();
         }
@@ -45,7 +45,7 @@ namespace RealEstateAgency.Areas.Identity.Pages.Account.Manage
             if (!User.IsInRole("Administrator") && !User.IsInRole("Moderator"))
                 return Forbid();
 
-            ApplicationForAgent applicationForAgent = await _unitOfWork.ApplicationForAgentRepository.GetByIdWithUserAsync(id);
+            ApplicationForAgent applicationForAgent = await _unitOfWork.ApplicationForAgentRepository.GetByIdAsync(id);
 
             if (applicationForAgent != null && applicationForAgent.Active)
             {

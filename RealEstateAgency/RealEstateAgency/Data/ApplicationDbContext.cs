@@ -21,8 +21,10 @@ namespace RealEstateAgency.Data
 
             builder.Entity<Message>().HasOne(m => m.FromUser).WithMany().OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Message>().HasOne(m => m.ToUser).WithMany().OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<VoteForAgent>().HasOne(m => m.Author).WithMany().OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<VoteForRealEstate>().HasOne(m => m.Author).WithMany().OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<VoteForAgent>().HasOne(v => v.Author).WithMany().OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<VoteForRealEstate>().HasOne(v => v.Author).WithMany().OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<OfferRealEstate>().HasOne(offer => offer.Advert).WithMany().OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<OfferRealEstate>().HasOne(offer => offer.ApplicationForRealEstate).WithMany().OnDelete(DeleteBehavior.Restrict);
         }
         public virtual DbSet<Advert> Adverts { get; set; }
         public virtual DbSet<Agent> Agents { get; set; }
@@ -33,5 +35,6 @@ namespace RealEstateAgency.Data
         public virtual DbSet<TypeRealEstate> TypeRealEstates { get; set; }
         public virtual DbSet<VoteForAgent> VoteForAgents { get; set; }
         public virtual DbSet<VoteForRealEstate> VoteForRealEstates { get; set; }
+        public virtual DbSet<OfferRealEstate> OfferRealEstates { get; set; }
     }
 }

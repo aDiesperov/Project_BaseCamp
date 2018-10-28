@@ -18,7 +18,7 @@ namespace RealEstateAgency
             {
                 var _roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 var _userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-
+                var _unitOfWork = serviceScope.ServiceProvider.GetRequiredService<UnitOfWork>();
 
                 if (_roleManager.Roles.Count() > 0 || _userManager.Users.Count() > 0) return;
 
@@ -32,13 +32,27 @@ namespace RealEstateAgency
 
                 user = new IdentityUser("Moderator") { Email = "Moderator@mail.ru" };
                 await _userManager.CreateAsync(user, "123456q");
-                await _userManager.AddToRoleAsync(user, "Moderator");
+                await _userManager.AddToRoleAsync(user, "Moderator");                
 
                 user = new IdentityUser("UserAgent") { Email = "UserAgent@mail.ru" };
                 await _userManager.CreateAsync(user, "123456q");
                 await _userManager.AddToRoleAsync(user, "Agent");
+                await _unitOfWork.AgentRepository.CreateAsync(new Models.Agent()
+                {
+                    Name = "UserAgent",
+                    Description = "Description",
+                    Rating = 0,
+                    Active = true,
+                    DateChangeActive = DateTime.Now,
+                    User = user
+                });
 
                 await _userManager.CreateAsync(new IdentityUser("User1") { Email = "User1@mail.ru" }, "123456q");
+
+                await _unitOfWork.TypeRealEstateRepository.CreateAsync(new Models.TypeRealEstate() { Name = "House" });
+                await _unitOfWork.TypeRealEstateRepository.CreateAsync(new Models.TypeRealEstate() { Name = "Office" });
+                await _unitOfWork.TypeRealEstateRepository.CreateAsync(new Models.TypeRealEstate() { Name = "Room" });
+                await _unitOfWork.TypeRealEstateRepository.CreateAsync(new Models.TypeRealEstate() { Name = "Apartment" });
             }
         }
     }

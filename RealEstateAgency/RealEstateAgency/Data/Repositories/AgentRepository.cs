@@ -15,17 +15,7 @@ namespace RealEstateAgency.Data.Repositories
 
         public async Task<Agent> GetByUserAsync(IdentityUser user)
         {
-            return await GetAll().SingleOrDefaultAsync(agent => agent.User == user);
-        }
-
-        public IEnumerable<Agent> GetAllWithUser()
-        {
-            return GetAll().Include(agent => agent.User);
-        }
-
-        public async Task<Agent> GetByIdWithUserAsync(int id)
-        {
-            return await GetAll().Include(agent => agent.User).SingleOrDefaultAsync(agent => agent.AgentId == id);
+            return await base.GetAll().SingleOrDefaultAsync(agent => agent.User == user);
         }
     }
 }

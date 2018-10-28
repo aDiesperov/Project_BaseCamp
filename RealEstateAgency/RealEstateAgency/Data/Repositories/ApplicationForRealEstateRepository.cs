@@ -13,14 +13,14 @@ namespace RealEstateAgency.Data.Repositories
     {
         public ApplicationForRealEstateRepository(ApplicationDbContext context) : base(context) { }
 
-        public IEnumerable<ApplicationForRealEstate> GetMyApplication(IdentityUser User)
+        public IQueryable<ApplicationForRealEstate> GetAllByUser(IdentityUser User)
         {
             return GetAll().Where(app => app.Author == User);
         }
-
-        public async Task<ApplicationForRealEstate> GetByIdWithUserAsync(int id)
+        
+        public IEnumerable<ApplicationForRealEstate> GetAllActive()
         {
-            return await GetAll().Include(app => app.Author).SingleOrDefaultAsync(app => app.ApplicationForRealEstateId == id);
+            return Find(app => app.Active);
         }
     }
 }

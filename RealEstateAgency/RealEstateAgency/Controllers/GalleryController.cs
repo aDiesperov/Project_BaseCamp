@@ -30,7 +30,7 @@ namespace RealEstateAgency.Controllers
         {
             AdvertViewModel advertViewModel = new AdvertViewModel()
             {
-                Adverts = _unitOfWork.AdvertRepository.GetAllResolveWithType(),
+                Adverts = _unitOfWork.AdvertRepository.GetAllResolve(),
                 TypeRealEstates = _unitOfWork.TypeRealEstateRepository.GetAll()
             };
             ViewData["MessageState"] = MessageState;
@@ -53,55 +53,58 @@ namespace RealEstateAgency.Controllers
         {
             if (ModelState.IsValid)
             {
-                Advert advert = new Advert()
+                TypeRealEstate typeRealEstate = await _unitOfWork.TypeRealEstateRepository.GetByIdAsync(createAdvert.TypeRealEstate);
+                if (typeRealEstate != null)
                 {
-                    Name = createAdvert.Name,
-                    Description = createAdvert.Description,
-                    Price = createAdvert.Price,
-                    TotalArea = createAdvert.TotalArea,
-                    Floor = createAdvert.Floor,
-                    KitchenArea = createAdvert.KitchenArea,
-                    NumRooms = createAdvert.NumRooms,
-                    NumStories = createAdvert.NumStories,
-                    Rating = 0,
-                    Rent = createAdvert.Rent,
-                    StatusActive = TypeStatusAdvert.waiting,
-                    DateChangeStatus = DateTime.Now,
-                    DatePublication = DateTime.Now,
-                    TypeRealEstate = await _unitOfWork.TypeRealEstateRepository.GetByIdAsync(createAdvert.TypeRealEstate),
-                    Author = await _unitOfWork.AgentRepository.GetByUserAsync(await _userManager.GetUserAsync(User)),
-                };
-
-                await _unitOfWork.AdvertRepository.CreateAsync(advert);
-
-                //upload files
-                foreach (var file in createAdvert.Files)
-                {
-                    if (file.Length > 0)
+                    Advert advert = new Advert()
                     {
-                        string fileName;
-                        do
+                        Name = createAdvert.Name,
+                        Description = createAdvert.Description,
+                        Price = createAdvert.Price,
+                        TotalArea = createAdvert.TotalArea,
+                        Floor = createAdvert.Floor,
+                        KitchenArea = createAdvert.KitchenArea,
+                        NumRooms = createAdvert.NumRooms,
+                        NumStories = createAdvert.NumStories,
+                        Rating = 0,
+                        Rent = createAdvert.Rent,
+                        StatusActive = TypeStatusAdvert.waiting,
+                        DateChangeStatus = DateTime.Now,
+                        DatePublication = DateTime.Now,
+                        TypeRealEstate = typeRealEstate,
+                        Author = await _unitOfWork.AgentRepository.GetByUserAsync(await _userManager.GetUserAsync(User)),
+                    };
+
+                    await _unitOfWork.AdvertRepository.CreateAsync(advert);
+
+                    //upload files
+                    foreach (var file in createAdvert.Files)
+                    {
+                        if (file.Length > 0)
                         {
-                            fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                        } while (System.IO.File.Exists("imgs\\" + fileName));
+                            string fileName;
+                            do
+                            {
+                                fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                            } while (System.IO.File.Exists("imgs\\" + fileName));
 
-                        using (var newImg = new FileStream("imgs\\" + fileName, FileMode.CreateNew, FileAccess.Write)) {
-                            await file.CopyToAsync(newImg);
+                            using (var newImg = new FileStream("imgs\\" + fileName, FileMode.CreateNew, FileAccess.ReadWrite))
+                            {
+                                await file.CopyToAsync(newImg);
+                            }
+                            ImgForAdvert imgForAdvert = new ImgForAdvert() { Name = fileName, Advert = advert };
+                            await _unitOfWork.ImgForAdvertRepository.CreateAsync(imgForAdvert);
                         }
-                        ImgForAdvert imgForAdvert = new ImgForAdvert() { Name = fileName, Advert = advert };
-                        await _unitOfWork.ImgForAdvertRepository.CreateAsync(imgForAdvert);
                     }
-                }                
+                    MessageState = "Added!";
+                    return RedirectToAction("Index");
+                }
             }
-            else
-            {
-                createAdvert.TypesRealEstate = _unitOfWork.TypeRealEstateRepository.GetAll();
+            createAdvert.TypesRealEstate = _unitOfWork.TypeRealEstateRepository.GetAll();
 
-                return View(createAdvert);
-            }
+            return View(createAdvert);
 
-            MessageState = "Added!";
-            return RedirectToAction("Index");
+
         }
         [HttpGet]
         public IActionResult CreateApplicationForRealEstate()
@@ -139,6 +142,11 @@ namespace RealEstateAgency.Controllers
 
             MessageState = "Added!";
             return RedirectToAction("Index");
+        }
+        [Route("imgs/{id}")]
+        public FileResult GetImg(string id)
+        {
+            return File(System.IO.File.ReadAllBytes("imgs\\" + id), System.Net.Mime.MediaTypeNames.Image.Jpeg);
         }
     }
 }
