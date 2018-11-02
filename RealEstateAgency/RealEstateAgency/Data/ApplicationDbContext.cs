@@ -26,15 +26,15 @@ namespace RealEstateAgency.Data
             builder.Entity<OfferRealEstate>().HasOne(offer => offer.Advert).WithMany().OnDelete(DeleteBehavior.Restrict);
             builder.Entity<OfferRealEstate>().HasOne(offer => offer.ApplicationForRealEstate).WithMany().OnDelete(DeleteBehavior.Restrict);
         }
-        public virtual DbSet<Advert> Adverts { get; set; }
-        public virtual DbSet<Agent> Agents { get; set; }
-        public virtual DbSet<ApplicationForAgent> ApplicationForAgents { get; set; }
-        public virtual DbSet<ApplicationForRealEstate> ApplicationForRealEstates { get; set; }
-        public virtual DbSet<ImgForAdvert> ImgForAdverts { get; set; }
-        public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<TypeRealEstate> TypeRealEstates { get; set; }
-        public virtual DbSet<VoteForAgent> VoteForAgents { get; set; }
-        public virtual DbSet<VoteForRealEstate> VoteForRealEstates { get; set; }
-        public virtual DbSet<OfferRealEstate> OfferRealEstates { get; set; }
+        public DbSet<Advert> Adverts { get; set; }
+        public DbSet<Agent> Agents { get; set; }
+        public DbSet<ApplicationForAgent> ApplicationForAgents { get; set; }
+        public DbSet<ApplicationForRealEstate> ApplicationForRealEstates { get; set; }
+        public DbSet<ImgForAdvert> ImgForAdverts { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<TypeRealEstate> TypeRealEstates { get; set; }
+        public DbSet<VoteForAgent> VoteForAgents { get; set; }
+        public DbSet<VoteForRealEstate> VoteForRealEstates { get; set; }
+        public DbSet<OfferRealEstate> OfferRealEstates { get; set; }
     }
 }

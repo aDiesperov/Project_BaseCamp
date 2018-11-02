@@ -12557,11 +12557,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Project_BaseCamp\\RealEstateAgency\\RealEstateAgency\\RealEstateAgency.csproj",
+      "projectUniqueName": "D:\\MyProject\\Project_BaseCamp\\RealEstateAgency\\RealEstateAgency\\RealEstateAgency.csproj",
       "projectName": "RealEstateAgency",
-      "projectPath": "E:\\Project_BaseCamp\\RealEstateAgency\\RealEstateAgency\\RealEstateAgency.csproj",
+      "projectPath": "D:\\MyProject\\Project_BaseCamp\\RealEstateAgency\\RealEstateAgency\\RealEstateAgency.csproj",
       "packagesPath": "C:\\Users\\Zver\\.nuget\\packages\\",
-      "outputPath": "E:\\Project_BaseCamp\\RealEstateAgency\\RealEstateAgency\\obj\\",
+      "outputPath": "D:\\MyProject\\Project_BaseCamp\\RealEstateAgency\\RealEstateAgency\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
